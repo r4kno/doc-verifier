@@ -44,7 +44,7 @@ const LoginPage = () => {
       >
         {/* Show the message above the email and password */}
         <Typography fontWeight="500" variant="h5" sx={{ mb: "1.5rem" }}>
-          Welcome to Socipedia, the Social Media for Sociopaths!
+          Welcome to DocVerifer!
         </Typography>
         <Form />
       </Box>

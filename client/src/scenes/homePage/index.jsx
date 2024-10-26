@@ -32,6 +32,7 @@ const HomePage = () => {
           <MyDocWidget picturePath={picturePath} />
 
           {/* Get Doc */}
+          {console.log(_id)}
           <DocsWidget userId={_id} />
         </Box>
       </Box>

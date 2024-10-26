@@ -1,19 +1,13 @@
 import User from "../models/User.js";
 
 // READ - Get User by ID
-export const getUser = async (req, res) => {
+// controllers/users.js
+export const getUsers = async (req, res) => {
   try {
-    // Get the ID from the request parameters
-    const { id } = req.params;
-
-    // Find the user by ID
-    const user = await User.findById(id);
-    res.status(200).json(user);
-
-    // Log the user for debugging purposes
-    console.log(user);
-  } catch (err) {
-    res.status(404).json({ message: err.message, error: "error in getuser" });
+    const users = await User.find().populate('docs');
+    res.status(200).json(users);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
   }
 };
 

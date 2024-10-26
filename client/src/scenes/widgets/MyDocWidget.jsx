@@ -29,6 +29,7 @@ const MydocWidget = ({ picturePath }) => {
   const dispatch = useDispatch();
   const [isImage, setIsImage] = useState(false);
   const [image, setImage] = useState(null);
+  const [isVerified, setIsVerified] = useState(false);
   const [doc, setDoc] = useState("");
   const { palette } = useTheme();
   const { _id } = useSelector((state) => state.user);
@@ -45,6 +46,7 @@ const MydocWidget = ({ picturePath }) => {
     // Append the user ID and doc description to the form data
     formData.append("userId", _id);
     formData.append("description", doc);
+    formData.append("isVerified", isVerified);
 
     // If an image is selected, append it to the form data
     if (image) {
@@ -164,7 +166,7 @@ const MydocWidget = ({ picturePath }) => {
             borderRadius: "3rem",
           }}
         >
-          doc
+          Submit
         </Button>
       </FlexBetween>
     </WidgetWrapper>

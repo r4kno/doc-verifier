@@ -44,7 +44,7 @@ const AuthoritiesLoginPage = () => {
       >
         {/* Show the message above the email and password */}
         <Typography fontWeight="500" variant="h5" sx={{ mb: "1.5rem" }}>
-          Welcome to DocVerifier, the Social Media for Authorities!
+          Welcome to DocVerifier!
         </Typography>
         <AuthoritiesForm />
       </Box>

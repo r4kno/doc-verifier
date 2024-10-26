@@ -49,7 +49,7 @@ const DocsWidget = ({ userId, isProfile = false }) => {
       getUserDocs();
     } else {
       // Otherwise, get all docs
-      getDocs();
+      getUserDocs();
     }
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
