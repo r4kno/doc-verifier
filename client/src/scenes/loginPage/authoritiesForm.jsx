@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { setLogin, setAuthorityLogin } from "state";
+import { setAuthorityLogin } from "state";
 import { 
   Box, 
   Button, 
@@ -69,7 +69,7 @@ const AuthoritiesForm = () => {
         // Log the updated state after dispatch
         console.log("Auth state after dispatch:", authState);
         
-        navigate("/home");
+        navigate("/authority");
       }
     } catch (error) {
       console.error("Login error:", error);
