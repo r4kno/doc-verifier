@@ -7,7 +7,6 @@ import DocsWidget from "scenes/widgets/DocsWidget";
 
 // Home Page
 const HomePage = () => {
-  // Hook to check if screen size is greater than or equal to 1000px
   const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
   const { _id, picturePath } = useSelector((state) => state.user);
   return (
@@ -21,20 +20,7 @@ const HomePage = () => {
         gap="0.5rem"
         justifyContent="center"
         alignItems="center"
-      >
-
-        {/* Create Doc && Get Docs Center  */}
-        <Box
-          flexBasis={isNonMobileScreens ? "42%" : "undefined"}
-          mt={isNonMobileScreens ? "undefined" : "2rem"}
-        >
-          {/* Create Doc */}
-          <MyDocWidget picturePath={picturePath} />
-
-          {/* Get Doc */}
-          {console.log(_id)}
-          <DocsWidget userId={_id} />
-        </Box>
+      >        
       </Box>
     </Box>
   );

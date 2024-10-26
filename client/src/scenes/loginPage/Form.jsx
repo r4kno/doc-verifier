@@ -9,18 +9,16 @@ import { setLogin } from "state";
 import Dropzone from "react-dropzone";
 import FlexBetween from "components/FlexBetween";
 
-// This code defines a Yup schema for a registration form with required fields for firstName, lastName, email (which must be a valid email), password, location, occupation, and picture.
+
 const registerSchema = yup.object().shape({
-  firstName: yup.string().required("required"),
-  lastName: yup.string().required("required"),
+  Name: yup.string().required("required"),
   email: yup.string().email("Invalid email").required("required"),
   password: yup.string().required("required"),
-  location: yup.string().required("required"),
+  ContactNumber: yup.string().required("required"),
   occupation: yup.string().required("required"),
-  picture: yup.string().required("required"),
 });
 
-// This code defines a Yup schema for a login form with required fields for email (which must be a valid email) and password.
+
 const loginSchema = yup.object().shape({
   email: yup.string().email("Invalid email").required("required"),
   password: yup.string().required("required"),
@@ -32,9 +30,7 @@ const initialValuesRegister = {
   lastName: "",
   email: "",
   password: "",
-  location: "",
-  occupation: "",
-  picture: "",
+  ContactNumber: "",
 };
 
 // initalize values of Login Page
@@ -57,15 +53,12 @@ const Form = () => {
 
   // function to handle the user registration
   const register = async (values, onSubmitProps) => {
-    // create a new FormData object to send form information with an image
     const formData = new FormData();
     console.log("running registeration")
-    // append the values from the form to the form data object
     for (let value in values) {
       formData.append(value, values[value]);
     }
 
-    // append the image information to the form data object
     formData.append("picturePath", values.picture.name);
 
     // make a POST request to the register endpoint
@@ -74,13 +67,10 @@ const Form = () => {
       body: formData,
     });
 
-    // parse the response from the server as JSON
     const savedUser = await savedUserResponse.json();
 
-    // reset the form after submitting
     onSubmitProps.resetForm();
 
-    // if the user was successfully registered, set the page type to "login"
     if (savedUser) {
       setPageType("login");
     }
@@ -88,7 +78,6 @@ const Form = () => {
 
   // function to handle the user login
   const login = async (values, onSubmitProps) => {
-    // make a POST request to the login endpoint with the form values
     const loggedInResponse = await fetch(`http://localhost:3001/auth/login`, {
       method: "POST",
       headers: { "Content-type": "application/json" },
@@ -106,7 +95,6 @@ const Form = () => {
     // reset the form after submitting
     onSubmitProps.resetForm();
 
-    // if the user was successfully logged in, update the global state and navigate to the home page
     if (loggedIn) {
       dispatch(
         setLogin({
@@ -128,9 +116,7 @@ const Form = () => {
   return (
     <Formik
       onSubmit={handleFormSubmit}
-      // Set initial values based on whether the user is logging in or registering
       initialValues={isLogin ? initialValuesLogin : initialValuesRegister}
-      // Set the validation schema based on whether the user is logging in or registering
       validationSchema={isLogin ? loginSchema : registerSchema}
     >
       {({

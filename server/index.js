@@ -17,7 +17,6 @@ import { createDoc } from "./controllers/docs.js";
 import { verifyToken } from "./middleware/auth.js";
 
 // TODO adding file filter for specific file (multer)
-
 /* CONFIGURATIONS */
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -69,6 +68,7 @@ app.post("/docs", verifyToken, upload.single("picture"), createDoc);
 app.use("/auth", authRoutes);
 app.use("/users", userRoutes);
 app.use("/docs", docRoutes);
+app
 
 // Set the PORT environment variable or use 6001 as default
 const PORT = process.env.PORT || 6001;

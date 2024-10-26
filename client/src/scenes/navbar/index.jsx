@@ -26,16 +26,12 @@ import { useNavigate } from "react-router-dom";
 import FlexBetween from "components/FlexBetween";
 
 const Navbar = () => {
-  // State hook to toggle mobile menu
   const [isMobileMenuToggled, setIsMobileMenuToggled] = useState(false);
 
-  // Dispatch hook for Redux actions
   const dispatch = useDispatch();
 
-  // Navigate hook for React Router navigation
   const navigate = useNavigate();
 
-  // Selector hook for getting user data from Redux store
   const user = useSelector((state) => state.user);
 
   // Hook to check if screen size is greater than or equal to 1000px
@@ -51,11 +47,10 @@ const Navbar = () => {
   const primaryLight = theme.palette.primary.light;
   const alt = theme.palette.background.alt;
 
-  // Variables to store color values from the theme
   const fullName = user != null ? `${user.firstName} ${user.lastName}` : "Mohit Bansal";
 
   return (
-    // this is only do when you have box component it available to box component so you send css property as attriubte
+
     <FlexBetween padding="1rem 6%" backgroundColor={alt}>
       <FlexBetween gap="1.75rem">
         {/* Logo */}

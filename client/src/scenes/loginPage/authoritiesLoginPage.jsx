@@ -6,10 +6,8 @@ import FlexBetween from "components/FlexBetween";
 
 // Authorities Login Page Component
 const AuthoritiesLoginPage = () => {
-  // Hook to get the theme object from Material UI
   const theme = useTheme();
 
-  // Hook to check if screen size is greater than or equal to 1000px
   const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
 
   return (
