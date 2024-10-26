@@ -20,34 +20,17 @@ import {
     location,
     picturePath,
     userPicturePath,
-    likes,
     comments,
   }) => {
     const [isComments, setIsComments] = useState(false);
     const dispatch = useDispatch();
     const token = useSelector((state) => state.token);
     const loggedInUserId = useSelector((state) => state.user._id);
-    const isLiked = Boolean(likes[loggedInUserId]);
-    const likeCount = Object.keys(likes).length;
   
     const { palette } = useTheme();
     const main = palette.neutral.main;
     const primary = palette.primary.main;
   
-    const patchLike = async () => {
-      // Send a PATCH request to the API endpoint
-      const response = await fetch(`${process.env.REACT_APP_BASE_URL}/docs/${docId}/like`, {
-        method: "PATCH",
-        headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
-        body: JSON.stringify({ userId: loggedInUserId }),
-      });
-  
-      // Get the updated doc object from the response
-      const updateDoc = await response.json();
-  
-      // Get the updated doc object from the response
-      dispatch(setDoc({ doc: updateDoc }));
-    };
   
     return (
       <WidgetWrapper m="2rem 0">
@@ -78,12 +61,7 @@ import {
         {/* If there's a picture associated with the doc, display it */}
         <FlexBetween mt="0.25rem">
           <FlexBetween gap="1rem">
-            <FlexBetween gap="0.3rem">
-              <IconButton onClick={patchLike}>
-                {isLiked ? <FavoriteOutlined sx={{ color: primary }} /> : <FavoriteBorderOutlined />}
-              </IconButton>
-              <Typography>{likeCount}</Typography>
-            </FlexBetween>
+    
   
             <FlexBetween gap="0.3rem">
               <IconButton onClick={() => setIsComments(!isComments)}>

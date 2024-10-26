@@ -79,7 +79,7 @@ const MydocWidget = ({ picturePath }) => {
 
         {/* Input for doc text */}
         <InputBase
-          placeholder="What's on your mind..."
+          placeholder="Document Name"
           onChange={(e) => setDoc(e.target.value)}
           value={doc}
           sx={{
@@ -112,7 +112,7 @@ const MydocWidget = ({ picturePath }) => {
                 >
                   <input {...getInputProps()} />
                   {!image ? (
-                    <p>Add Image Here</p>
+                    <p>Add Document Here</p>
                   ) : (
                     <FlexBetween>
                       <Typography>{image.name}</Typography>
@@ -141,30 +141,13 @@ const MydocWidget = ({ picturePath }) => {
         <FlexBetween gap="0.25rem" onClick={() => setIsImage(!isImage)}>
           <ImageOutlined sx={{ color: mediumMain }} />
           <Typography color={mediumMain} sx={{ "&:hover": { cursor: "pointer", color: medium } }}>
-            Image
+            Attach Document
           </Typography>
         </FlexBetween>
 
         {/* Options for non-mobile screens */}
         {isNonMobileScreens ? (
           <>
-            {/* Option to add clip To-Do */}
-            <FlexBetween gap="0.25rem">
-              <GifBoxOutlined sx={{ color: mediumMain }} />
-              <Typography color={mediumMain}>Clip</Typography>
-            </FlexBetween>
-
-            {/* Option to add attachment */}
-            <FlexBetween gap="0.25rem">
-              <AttachFileOutlined sx={{ color: mediumMain }} />
-              <Typography color={mediumMain}>Attachment</Typography>
-            </FlexBetween>
-
-            {/* Option to add audio To-Do */}
-            <FlexBetween gap="0.25rem">
-              <MicOutlined sx={{ color: mediumMain }} />
-              <Typography color={mediumMain}>Audio</Typography>
-            </FlexBetween>
           </>
         ) : (
           <FlexBetween gap="0.25rem">

@@ -4,6 +4,7 @@ import Navbar from "scenes/navbar";
 import MyDocWidget from "scenes/widgets/MyDocWidget";
 import DocsWidget from "scenes/widgets/DocsWidget";
 
+
 // Home Page
 const HomePage = () => {
   // Hook to check if screen size is greater than or equal to 1000px

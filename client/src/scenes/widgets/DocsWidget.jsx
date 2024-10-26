@@ -66,7 +66,6 @@ const DocsWidget = ({ userId, isProfile = false }) => {
           location,
           picturePath,
           userPicturePath,
-          likes,
           comments,
         }) => {
           return (
@@ -79,7 +78,6 @@ const DocsWidget = ({ userId, isProfile = false }) => {
               location={location} // location of the user who created the doc
               picturePath={picturePath} // path to the picture associated with the doc
               userPicturePath={userPicturePath} // path to the picture of the user who created the doc
-              likes={likes} // likes for the doc
               comments={comments} // comments for the doc
             />
           );
