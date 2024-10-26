@@ -15,7 +15,6 @@ const registerSchema = yup.object().shape({
   email: yup.string().email("Invalid email").required("required"),
   password: yup.string().required("required"),
   ContactNumber: yup.string().required("required"),
-  occupation: yup.string().required("required"),
 });
 
 
@@ -26,8 +25,7 @@ const loginSchema = yup.object().shape({
 
 // initialize values of Register Page
 const initialValuesRegister = {
-  firstName: "",
-  lastName: "",
+  Name: "",
   email: "",
   password: "",
   ContactNumber: "",
@@ -59,7 +57,6 @@ const Form = () => {
       formData.append(value, values[value]);
     }
 
-    formData.append("picturePath", values.picture.name);
 
     // make a POST request to the register endpoint
     const savedUserResponse = await fetch(`http://localhost:3001/auth/register`, {
@@ -143,81 +140,29 @@ const Form = () => {
               // Show the following fields only if the user is registering
               <>
                 <TextField
-                  label="First Name"
-                  onBlur={handleBlur}
-                  onChange={handleChange}
-                  value={values.firstName}
-                  name="firstName"
-                  // Show error message if there's a touched and error with the field
-                  error={Boolean(touched.firstName) && Boolean(errors.firstName)}
-                  helperText={touched.firstName && errors.firstName}
-                  // Show field in two grid columns
-                  sx={{ gridColumn: "span 2" }}
+                    label="Name"
+                    onBlur={handleBlur}
+                    onChange={handleChange}
+                    value={values.name}
+                    name="name"
+                    error={Boolean(touched.name) && Boolean(errors.name)}
+                    helperText={touched.name && errors.name}
+                    sx={{ gridColumn: "span 2" }}
                 />
                 <TextField
-                  label="last Name"
-                  onBlur={handleBlur}
-                  onChange={handleChange}
-                  value={values.lastName}
-                  name="lastName"
-                  error={Boolean(touched.lastName) && Boolean(errors.lastName)}
-                  helperText={touched.lastName && errors.lastName}
-                  sx={{ gridColumn: "span 2" }}
+                    label="Phone_Number"
+                    onBlur={handleBlur}
+                    onChange={handleChange}
+                    value={values.phoneNumber}
+                    name="phoneNumber"
+                    error={Boolean(touched.phoneNumber) && Boolean(errors.phoneNumber)}
+                    helperText={touched.phoneNumber && errors.phoneNumber}
+                    sx={{ gridColumn: "span 2" }}
+                    type="tel"
                 />
-                <TextField
-                  label="Location"
-                  onBlur={handleBlur}
-                  onChange={handleChange}
-                  value={values.location}
-                  name="location"
-                  error={Boolean(touched.location) && Boolean(errors.location)}
-                  helperText={touched.location && errors.location}
-                  sx={{ gridColumn: "span 4" }}
-                />
-                <TextField
-                  label="Occupation"
-                  onBlur={handleBlur}
-                  onChange={handleChange}
-                  value={values.occupation}
-                  name="occupation"
-                  error={Boolean(touched.occupation) && Boolean(errors.occupation)}
-                  helperText={touched.occupation && errors.occupation}
-                  sx={{ gridColumn: "span 4" }}
-                />
-                <Box
-                  gridColumn="span 4"
-                  border={`1px solid ${palette.neutral.meduim}`}
-                  borderRadius="5px"
-                  p="1rem"
-                >
-                  <Dropzone
-                    acceptedFiles=".jpg,.jpeg,.pn"
-                    multiple={false}
-                    onDrop={(acceptedFiles) => setFieldValue("picture", acceptedFiles[0])}
-                  >
-                    {({ getRootProps, getInputProps }) => (
-                      <Box
-                        {...getRootProps()}
-                        border={`2px dashed ${palette.primary.main}`}
-                        p="1rem"
-                        sx={{ "&:hover": { cursor: "pointer" } }}
-                      >
-                        {/* Input for selecting files */}
-                        <input {...getInputProps()} />
-                        {!values.picture ? (
-                          //  Display text if no picture is selected
-                          <p>Add Picture Here</p>
-                        ) : (
-                          //  Display the selected picture name and edit icon
-                          <FlexBetween>
-                            <Typography>{values.picture.name}</Typography>
-                            <EditOutlinedIcon />
-                          </FlexBetween>
-                        )}
-                      </Box>
-                    )}
-                  </Dropzone>
-                </Box>
+
+
+               
               </>
             )}
 

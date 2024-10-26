@@ -2,39 +2,42 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import User from "../models/User.js";
 import Authority from "../models/authority.js"; // Import the Authority model
+import JsonDatabase from "../models/json_database.js"; // Import the JsonDatabase model
 
 
 export const register = async (req, res) => {
   try {
-    // Destructuring the required fields from the request body
-    const { firstName, lastName, email, password, picturePath, friends, location, occupation } =
-      req.body;
+    const {Name, email, password, ContactNumber } = req.body;
 
-    // Generating salt for bcrypt
     const salt = await bcrypt.genSalt(10);
-
-    // Hashing the password with bcrypt
     const passwordHash = await bcrypt.hash(password, salt);
 
-    // Creating a new user object with the details
-    const newUser = new User({
-      Name,
-      email,
-      password: passwordHash,
-      ContactNumeber,
-      viewedProfile: Math.floor(Math.random() * 10000),
-      impressions: Math.floor(Math.random() * 100000),
-    });
+    // Search for a match in the json_database collection
+    const existingEntry = await JsonDatabase.findOne({ Name, ContactNumber });
 
-    const savedUser = await newUser.save();
+    if (existingEntry) {
+      // If a match is found, add the registered email to the same JSON object
+      existingEntry.email = existingEntry.email || [];
+      existingEntry.email.push(email);
+      await existingEntry.save();
+    } else {
+      // If no match is found, proceed with the normal registration process
+      const newUser = new User({
+        Name,
+        email,
+        password: passwordHash,
+        ContactNumber,
+        viewedProfile: Math.floor(Math.random() * 10000),
+        impressions: Math.floor(Math.random() * 100000),
+      });
 
-    res.status(201).json(savedUser);
+      const savedUser = await newUser.save();
+      res.status(201).json(savedUser);
+    }
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 };
-
-
 export const login = async (req, res) => {
   try {
     const { email, password } = req.body;
