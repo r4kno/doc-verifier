@@ -4,6 +4,7 @@ import Navbar from "scenes/navbar";
 import MyDocWidget from "scenes/widgets/MyDocWidget";
 import DocsWidget from "scenes/widgets/DocsWidget";
 import ApplicationWidget from "scenes/widgets/ApplicationWidget";
+import DocumentVerification from "scenes/widgets/DocumentVerification";
 
 
 // Home Page
@@ -16,6 +17,7 @@ const HomePage = () => {
       {/* NavBar */}
       <Navbar />
       <ApplicationWidget />
+      <DocumentVerification />
     </Box>
   );
 };

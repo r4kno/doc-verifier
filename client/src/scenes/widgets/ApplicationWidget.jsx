@@ -3,56 +3,55 @@ import { useSelector } from 'react-redux';
 import './PersonalInfoForm.css';
 import nitLogo from "./WhatsApp Image 2024-10-27 at 10.47.46_b6111c96.jpg";
 
-// Sample JSON data - you can move this to a separate JSON file and import it
+
+// Sample users data
 const usersData = [
   {
-    email: "something@gmail.com",
-    name: "John Doe",
-    fatherName: "John Doe Sr",
-    motherName: "Jane Doe",
-    phoneNumber: "1234567890",
-    jeeRank: "123456",
-    aadhaarNumber: "1234-5678-9012" // Added Aadhaar Number
+    email: "krishagrawal@gmail.com",
+    name: "Krish Agrawal",
+    fatherName: "Raj Agrawal",
+    motherName: "Sunita Agrawal",
+    phoneNumber: "9876543210",
+    jeeRank: "45231",
+    aadhaarNumber: "4525-5878-6840"
   },
   {
     email: "sanchitsingh2@gmail.com",
-    name: "Alice Smith",
-    fatherName: "Bob Smith",
-    motherName: "Carol Smith",
+    name: "Sanchit Singh",
+    fatherName: "Ravindra Nath Singh",
+    motherName: "Sunita Singh",
     phoneNumber: "9876543210",
-    jeeRank: "654321",
-    aadhaarNumber: "2345-6789-0123" // Added Aadhaar Number
+    jeeRank: "48261",
+    aadhaarNumber: "2345-6789-0123"
   },
   {
-    email: "john.doe@example.com",
-    name: "John Doe",
-    fatherName: "Robert Doe",
-    motherName: "",
-    phoneNumber: "1234567890",
-    jeeRank: "234567",
-    aadhaarNumber: "3456-7890-1234" // Added Aadhaar Number
+    email: "onkargupta2@gmail.com",
+    name: "Onkar Gupta",
+    fatherName: "Vijay Kumar Gupta",
+    motherName: "Hemlata Gupta",
+    phoneNumber: "7876543421",
+    jeeRank: "43211",
+    aadhaarNumber: "7654-9705-1377"
   },
-  {
-    email: "jane.smith@example.com",
-    name: "Jane Smith",
-    fatherName: "Michael Smith",
-    motherName: "",
-    phoneNumber: "9876543210",
-    jeeRank: "345678",
-    aadhaarNumber: "4567-8901-2345" // Added Aadhaar Number
-  },
-  {
-    email: "alice.j@example.com",
-    name: "Alice Johnson",
-    fatherName: "Edward Johnson",
-    motherName: "",
-    phoneNumber: "5551234567",
-    jeeRank: "456789",
-    aadhaarNumber: "5678-9012-3456" // Added Aadhaar Number
-  }
+  
+  
+  // Add more sample users as needed
 ];
 
-function ApplicationWidget() {
+const Modal = ({ isOpen, onClose, children }) => {
+  if (!isOpen) return null;
+
+  return (
+    <div className="modal-overlay" onClick={onClose}>
+      <div className="modal-content" onClick={e => e.stopPropagation()}>
+        {children}
+        <button className="modal-close" onClick={onClose}>×</button>
+      </div>
+    </div>
+  );
+};
+
+const ApplicationWidget = () => {
   const [formData, setFormData] = useState({
     name: '',
     fatherName: '',
@@ -60,10 +59,26 @@ function ApplicationWidget() {
     phoneNumber: '',
     email: '',
     jeeRank: '',
-    aadhaarNumber: '' // Added aadhaarNumber field
+    aadhaarNumber: ''
   });
 
+  const [originalData, setOriginalData] = useState({});
+  const [editedFields, setEditedFields] = useState({});
+  const [showUploadModal, setShowUploadModal] = useState(false);
+  const [currentField, setCurrentField] = useState('');
+  const [uploadedFiles, setUploadedFiles] = useState({});
+  
   const userEmail = useSelector((state) => state.user.email);
+
+  // Document requirements mapping
+  const documentRequirements = {
+    aadhaarNumber: "Aadhaar Card",
+    name: "Government ID Proof",
+    fatherName: "Father's ID Proof",
+    motherName: "Mother's ID Proof",
+    jeeRank: "JEE Score Card",
+    phoneNumber: "Address Proof"
+  };
 
   const findUserInJSON = (email) => {
     const user = usersData.find(user => user.email.toLowerCase() === email.toLowerCase());
@@ -74,17 +89,17 @@ function ApplicationWidget() {
     if (userEmail) {
       const userData = findUserInJSON(userEmail);
       if (userData) {
-        setFormData({
+        const data = {
           name: userData.name || '',
           fatherName: userData.fatherName || '',
           motherName: userData.motherName || '',
           phoneNumber: userData.phoneNumber || '',
           email: userData.email || '',
           jeeRank: userData.jeeRank || '',
-          aadhaarNumber: userData.aadhaarNumber || '' // Set aadhaarNumber field from user data
-        });
-      } else {
-        console.log("User not found in JSON data");
+          aadhaarNumber: userData.aadhaarNumber || ''
+        };
+        setFormData(data);
+        setOriginalData(data);
       }
     }
   };
@@ -93,44 +108,55 @@ function ApplicationWidget() {
     getUserData();
   }, [userEmail]);
 
-  const autofillForm = () => {
-    const userData = findUserInJSON(userEmail);
-    if (userData) {
-      setFormData({
-        name: userData.name,
-        fatherName: userData.fatherName,
-        motherName: userData.motherName,
-        phoneNumber: userData.phoneNumber,
-        email: userData.email,
-        jeeRank: userData.jeeRank,
-        aadhaarNumber: userData.aadhaarNumber // Set aadhaarNumber from user data
-      });
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+
+    // Check if the value is different from original
+    if (value !== originalData[name]) {
+      setEditedFields(prev => ({
+        ...prev,
+        [name]: true
+      }));
+      setCurrentField(name);
+      setShowUploadModal(true);
     } else {
-      // Fallback sample data if user not found
-      const displayData = {
-        name: 'default name',
-        fatherName: 'Father Name',
-        motherName: 'Mother Name',
-        phoneNumber: '1234567890',
-        email: 'samplemail@gmail.com',
-        jeeRank: '000000', // Default JEE Rank
-        aadhaarNumber: '0000-0000-0000' // Default Aadhaar Number
-      };
-      setFormData(displayData);
+      setEditedFields(prev => ({
+        ...prev,
+        [name]: false
+      }));
     }
   };
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
+  const handleFileUpload = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setUploadedFiles(prev => ({
+        ...prev,
+        [currentField]: file
+      }));
+      setShowUploadModal(false);
+    }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    
+    // Check if any edited fields are missing document uploads
+    const missingDocuments = Object.keys(editedFields)
+      .filter(field => editedFields[field] && !uploadedFiles[field])
+      .map(field => documentRequirements[field]);
+
+    if (missingDocuments.length > 0) {
+      alert(`Please upload the following documents:\n${missingDocuments.join('\n')}`);
+      return;
+    }
+
     console.log('Form Data Submitted:', formData);
+    console.log('Uploaded Files:', uploadedFiles);
     alert('Form submitted successfully!');
   };
 
@@ -138,8 +164,23 @@ function ApplicationWidget() {
     <div className="form-container">
       <img src={nitLogo} alt="NIT Raipur Logo" className="logo" />
       <h2>NIT Raipur Application Form</h2>
+      
+      {Object.keys(editedFields).length > 0 && (
+        <div className="alert">
+          <p>Please upload verification documents for the edited fields:</p>
+          {Object.keys(editedFields)
+            .filter(field => editedFields[field])
+            .map(field => (
+              <div key={field}>
+                • {documentRequirements[field]}
+                {uploadedFiles[field] && ' (✓)'}
+              </div>
+            ))}
+        </div>
+      )}
+
       <form onSubmit={handleSubmit}>
-        {['name', 'fatherName', 'motherName', 'phoneNumber', 'email', 'jeeRank', 'aadhaarNumber'].map((field) => ( // Added 'aadhaarNumber' field
+        {['name', 'fatherName', 'motherName', 'phoneNumber', 'email', 'jeeRank', 'aadhaarNumber'].map((field) => (
           <div key={field} className="form-row">
             <label htmlFor={field}>
               {field === 'name' ? 'Name' : 
@@ -150,23 +191,47 @@ function ApplicationWidget() {
                field === 'aadhaarNumber' ? 'Aadhaar Number' : 
                'Email'}:
             </label>
-            <input
-              type={field === 'phoneNumber' || field === 'aadhaarNumber' ? 'tel' : 'text'}
-              id={field}
-              name={field}
-              value={formData[field]}
-              onChange={handleChange}
-              pattern={field === 'phoneNumber' ? '[0-9]{10}' : field === 'aadhaarNumber' ? '[0-9]{4}-[0-9]{4}-[0-9]{4}' : undefined}
-              required
-            />
+            <div className="input-group">
+              <input
+                type={field === 'phoneNumber' || field === 'aadhaarNumber' ? 'tel' : 'text'}
+                id={field}
+                name={field}
+                value={formData[field]}
+                onChange={handleChange}
+                pattern={field === 'phoneNumber' ? '[0-9]{10}' : field === 'aadhaarNumber' ? '[0-9]{4}-[0-9]{4}-[0-9]{4}' : undefined}
+                required
+                className={editedFields[field] ? 'edited-field' : ''}
+              />
+              {editedFields[field] && (
+                <button
+                  type="button"
+                  className="upload-button"
+                  onClick={() => {
+                    setCurrentField(field);
+                    setShowUploadModal(true);
+                  }}
+                >
+                  {uploadedFiles[field] ? '📎' : '📤'}
+                </button>
+              )}
+            </div>
           </div>
         ))}
         <div className="button-container">
           <button type="submit" className="submit-button">Submit</button>
         </div>
       </form>
+
+      <Modal 
+        isOpen={showUploadModal} 
+        onClose={() => setShowUploadModal(false)}
+      >
+        <h3>Upload Verification Document</h3>
+        <p>Please upload {documentRequirements[currentField]} for verification</p>
+        
+      </Modal>
     </div>
   );
-}
+};
 
 export default ApplicationWidget;
