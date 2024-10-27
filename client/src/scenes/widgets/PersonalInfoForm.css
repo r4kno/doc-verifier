@@ -1,0 +1,201 @@
+body {
+    background-color: #f4f4f4;
+}
+
+.form-container {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 30px;
+    font-family: 'Arial', sans-serif;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    color: #333;
+    border: 1px solid #0073e6;
+}
+
+.logo {
+    display: block;
+    margin: 0 auto 20px;
+    max-width: 100px;
+    height: auto;
+}
+
+.form-container h2 {
+    text-align: center;
+    color: #0073e6;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+/* Flex container for labels and inputs */
+.form-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.form-row label {
+    width: 40%;
+    font-weight: bold;
+    color: #555;
+}
+
+.form-row input {
+    width: 58%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    box-sizing: border-box;
+}
+
+.form-row input:focus {
+    border-color: #0073e6;
+    box-shadow: 0 0 6px rgba(0, 115, 230, 0.2);
+    outline: none;
+}
+
+/* Button styling */
+.button-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.submit-button,
+.autofill-button {
+    width: 100%;
+    padding: 12px;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.submit-button {
+    background-color: #0073e6;
+    color: #fff;
+    border: none;
+}
+
+.submit-button:hover {
+    background-color: #005bb5;
+    box-shadow: 0 4px 8px rgba(0, 91, 181, 0.3);
+}
+
+.autofill-button {
+    background-color: #e6e6e6;
+    color: #333;
+    border: 1px solid #ccc;
+}
+
+.autofill-button:hover {
+    background-color: #d4d4d4;
+}
+
+@media (max-width: 600px) {
+    .form-container {
+        padding: 20px;
+    }
+
+    .form-container h2 {
+        font-size: 1.8rem;
+    }
+
+    .form-row {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .form-row label,
+    .form-row input {
+        width: 100%;
+    }
+
+    .button-container {
+        flex-direction: column;
+    }
+
+    .submit-button,
+    .autofill-button {
+        width: 100%;
+        margin: 5px 0;
+    }
+}
+/* Existing styles remain the same */
+
+/* Modal styles */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    position: relative;
+    min-width: 300px;
+    max-width: 500px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .modal-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    border: none;
+    background: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #666;
+  }
+  
+  /* Alert styles */
+  .alert {
+    background-color: #fff3cd;
+    border: 1px solid #ffeeba;
+    color: #856404;
+    padding: 12px;
+    margin-bottom: 20px;
+    border-radius: 4px;
+  }
+  
+  /* Input group styles */
+  .input-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+  }
+  
+  .edited-field {
+    border-color: #ffc107;
+  }
+  
+  .upload-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 20px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+  }
+  
+  .file-input {
+    margin-top: 10px;
+    width: 100%;
+  }

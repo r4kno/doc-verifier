@@ -14,6 +14,14 @@ const jsonDatabaseSchema = new mongoose.Schema(
       type: [String],
       default: [],
     },
+    fatherName: {
+      type: String,
+      required: true,
+    },
+    result: {
+      type: String,
+      required: true,
+    },
   },
   { timestamps: true }
 );

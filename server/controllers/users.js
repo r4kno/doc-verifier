@@ -2,7 +2,7 @@ import User from "../models/User.js";
 
 // READ - Get User by ID
 // controllers/users.js
-export const getUsers = async (req, res) => {
+export const getUser = async (req, res) => {
   try {
     const users = await User.find().populate('docs');
     res.status(200).json(users);

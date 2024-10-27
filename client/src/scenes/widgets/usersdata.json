@@ -1,0 +1,44 @@
+[{
+  "_id": {
+    "$oid": "671daa2d05db1f9f368d8b53"
+  },
+  "Name": "John Doe",
+  "ContactNumber": "1234567890",
+  "email": [
+    "john.doe@example.com",
+    "j.doe@sample.com"
+  ],
+  "fatherName": "Robert Doe",
+  "result": "Pass",
+  "createdAt": "2024-10-27T10:00:00Z",
+  "updatedAt": "2024-10-27T10:00:00Z"
+},
+{
+  "_id": {
+    "$oid": "671daa2d05db1f9f368d8b54"
+  },
+  "Name": "Jane Smith",
+  "ContactNumber": "9876543210",
+  "email": [
+    "jane.smith@example.com"
+  ],
+  "fatherName": "Michael Smith",
+  "result": "Fail",
+  "createdAt": "2024-10-26T09:30:00Z",
+  "updatedAt": "2024-10-26T09:30:00Z"
+},
+{
+  "_id": {
+    "$oid": "671daa2d05db1f9f368d8b55"
+  },
+  "Name": "Alice Johnson",
+  "ContactNumber": "5551234567",
+  "email": [
+    "alice.j@example.com",
+    "alice@domain.com"
+  ],
+  "fatherName": "Edward Johnson",
+  "result": "Pass",
+  "createdAt": "2024-10-25T12:15:00Z",
+  "updatedAt": "2024-10-25T12:15:00Z"
+}]

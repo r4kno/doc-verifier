@@ -11,7 +11,8 @@ import FlexBetween from "components/FlexBetween";
 
 
 const registerSchema = yup.object().shape({
-  Name: yup.string().required("required"),
+  firstName: yup.string().required("required"),
+  lastName: yup.string().required("required"),
   email: yup.string().email("Invalid email").required("required"),
   password: yup.string().required("required"),
   ContactNumber: yup.string().required("required"),
@@ -25,7 +26,8 @@ const loginSchema = yup.object().shape({
 
 // initialize values of Register Page
 const initialValuesRegister = {
-  Name: "",
+  firstName: "",
+  lastName: "",
   email: "",
   password: "",
   ContactNumber: "",
@@ -105,7 +107,7 @@ const Form = () => {
 
   // function to handle the form submit
   const handleFormSubmit = async (values, onSubmitProps) => {
-    
+    console.log("Form submitted with values:", values); 
     if (isLogin) await login(values, onSubmitProps);
     if (isRegister) await register(values, onSubmitProps);
   };
@@ -137,34 +139,42 @@ const Form = () => {
             }}
           >
             {isRegister && (
-              // Show the following fields only if the user is registering
-              <>
-                <TextField
-                    label="Name"
+                <>
+                  <TextField
+                  label="First Name"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  value={values.firstName}
+                  name="firstName"
+                  // Show error message if there's a touched and error with the field
+                  error={Boolean(touched.firstName) && Boolean(errors.firstName)}
+                  helperText={touched.firstName && errors.firstName}
+                  // Show field in two grid columns
+                  sx={{ gridColumn: "span 2" }}
+                />
+                  <TextField
+                    label="last Name"
                     onBlur={handleBlur}
                     onChange={handleChange}
-                    value={values.name}
-                    name="name"
-                    error={Boolean(touched.name) && Boolean(errors.name)}
-                    helperText={touched.name && errors.name}
+                    value={values.lastName}
+                    name="lastName"
+                    error={Boolean(touched.lastName) && Boolean(errors.lastName)}
+                    helperText={touched.lastName && errors.lastName}
                     sx={{ gridColumn: "span 2" }}
-                />
-                <TextField
-                    label="Phone_Number"
-                    onBlur={handleBlur}
-                    onChange={handleChange}
-                    value={values.phoneNumber}
-                    name="phoneNumber"
-                    error={Boolean(touched.phoneNumber) && Boolean(errors.phoneNumber)}
-                    helperText={touched.phoneNumber && errors.phoneNumber}
-                    sx={{ gridColumn: "span 2" }}
-                    type="tel"
-                />
-
-
-               
-              </>
-            )}
+                  />
+                  <TextField
+                      label="Contact Number"
+                      onBlur={handleBlur}
+                      onChange={handleChange}
+                      value={values.ContactNumber}  // Changed from phoneNumber to ContactNumber
+                      name="ContactNumber"          // Changed from phoneNumber to ContactNumber
+                      error={Boolean(touched.ContactNumber) && Boolean(errors.ContactNumber)}
+                      helperText={touched.ContactNumber && errors.ContactNumber}
+                      sx={{ gridColumn: "span 2" }}
+                      type="tel"
+                  />
+                </>
+              )}
 
             {/* Email Input */}
             <TextField
