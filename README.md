@@ -3,7 +3,7 @@
 # DocVerifier
 
 DocVerifier, a modern and user-friendly platform for social connections and sharing are still under development. With user authentication, you can easily create and like posts, add and remove friends, and view friend profiles. The fully responsive platform offers a choice of light and dark modes to match your preference. Using Redux Toolkit, DocVerifier provides a seamless and efficient experience with optimized state management, making it the ultimate tool for staying connected with your social network once complete.
-# Hi, I'm Mohit! 👋
+# Hi, I'm Onkar! 👋
 
 ## Features
   * Users can create post and like post
@@ -43,14 +43,3 @@ Starting Backend
   cd/server
   node index.js
 ```
-## Feedback
-
-If you have any feedback, please reach out to us at bmohit162001@gmail.com
-
-
-## Contributing
-
-Contributions are always welcome!
-
-If you have any questions or need help getting started, feel free to open an issue on the GitHub repository. We look forward to seeing your contributions!
-
